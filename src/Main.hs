@@ -1,16 +1,13 @@
 module Main where
 
-import Text.HTML.TagSoup
 import System.Environment
-
-printLinks :: String -> IO ()
-printLinks file = do
-  tags <- parseTags <$> readFile file
-  let strings = map show tags
-  mconcat $ putStrLn <$> strings 
+import NextLink
+import UpLink
 
 main :: IO ()
 main = do
   rootFile <- head <$> getArgs
-  printLinks rootFile
-  putStrLn rootFile
+  upFile <- prettyShowUpLink rootFile
+  putStr rootFile
+  putStr " -> "
+  putStrLn upFile 
