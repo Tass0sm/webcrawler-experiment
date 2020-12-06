@@ -1,6 +1,7 @@
 module PrevLink
   ( isPrevLink
   , getPrevLinkTag
+  , maybePrevLink
   , prettyShowPrevLink ) where
 
 import Util
@@ -19,6 +20,12 @@ getPrevLinkTag tags = do
   case trimmedTags of
     x:_ -> Just x
     [] -> Nothing
+
+maybePrevLink :: String -> IO (Maybe String)
+maybePrevLink file = do
+  tags <- parseTags <$> readFile file
+  let maybePrevLink = maybeHREF $ getPrevLinkTag tags
+  return maybePrevLink
 
 prettyShowPrevLink :: String -> IO (String)
 prettyShowPrevLink file = do

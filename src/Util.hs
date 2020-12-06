@@ -1,4 +1,6 @@
-module Util (prettyShowHREF) where
+module Util
+  ( prettyShowHREF
+  , maybeHREF ) where
 
 import Text.HTML.TagSoup
 
@@ -9,4 +11,9 @@ prettyShowHREF (Just (TagOpen _ attrs)) =
     Just l -> l
     Nothing -> "Nothing"
 prettyShowHREF _ = "Nothing"
+
+maybeHREF :: Maybe (Tag String) -> Maybe String
+maybeHREF (Just (TagOpen _ attrs)) = 
+  lookup "HREF" attrs
+maybeHREF _ = Nothing
 

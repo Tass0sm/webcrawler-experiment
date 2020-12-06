@@ -1,6 +1,7 @@
 module UpLink
   ( isUpLink
   , getUpLinkTag
+  , maybeUpLink
   , prettyShowUpLink ) where
 
 import Util
@@ -19,6 +20,12 @@ getUpLinkTag tags = do
   case trimmedTags of
     x:_ -> Just x
     [] -> Nothing
+
+maybeUpLink :: String -> IO (Maybe String)
+maybeUpLink file = do
+  tags <- parseTags <$> readFile file
+  let maybeUpLink = maybeHREF $ getUpLinkTag tags
+  return maybeUpLink
 
 prettyShowUpLink :: String -> IO (String)
 prettyShowUpLink file = do

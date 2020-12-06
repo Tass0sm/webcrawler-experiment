@@ -1,6 +1,7 @@
 module NextLink
   ( isNextLink
   , getNextLinkTag
+  , maybeNextLink
   , prettyShowNextLink ) where
 
 import Util
@@ -19,6 +20,12 @@ getNextLinkTag tags = do
   case trimmedTags of
     x:_ -> Just x
     [] -> Nothing
+
+maybeNextLink :: String -> IO (Maybe String)
+maybeNextLink file = do
+  tags <- parseTags <$> readFile file
+  let maybeNextLink = maybeHREF $ getNextLinkTag tags
+  return maybeNextLink
 
 prettyShowNextLink :: String -> IO (String)
 prettyShowNextLink file = do

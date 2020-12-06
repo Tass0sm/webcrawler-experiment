@@ -22,9 +22,12 @@ executable webcrawl-experiment
   other-modules:       NextLink
                      , UpLink
                      , PrevLink
+                     , DocGraph
                      , Util
   -- other-extensions:
   build-depends:       base >=4.14 && <4.15
                      , tagsoup
+                     , directory
+                     , algebraic-graphs
   hs-source-dirs:      src
   default-language:    Haskell2010
